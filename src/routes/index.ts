@@ -1,9 +1,10 @@
 import { Request, Response, Router } from 'express';
+import UserController from '../controllers/UserController';
 
 const routes = Router();
 
-routes.get('/', (request: Request, response: Response) => {
-  response.status(200).json({ message: 'api-auth' });
-});
+const userController = new UserController();
+
+routes.post('/users', userController.create);
 
 export default routes;

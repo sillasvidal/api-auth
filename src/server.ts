@@ -9,6 +9,7 @@ import routes from './routes';
 import { AppDataSource } from './database';
 import AppError from './errors/AppError';
 
+import './container';
 
 const app = express();
 

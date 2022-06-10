@@ -1,6 +1,9 @@
+import { inject, injectable } from "tsyringe";
+
 import AppError from "../errors/AppError";
+import { IUsersRepository } from "../repositories/IUsersRepository";
 import BCryptHashProvider from "../providers/BCryptHashProvider";
-import UsersRepository from "../repositories/UsersRepository";
+import { IHashProvider } from "../providers/IHashProvider";
 
 interface IRequest {
   name: string;
@@ -8,21 +11,26 @@ interface IRequest {
   password: string;
 }
 
+@injectable()
 class CreateUserService {
-  public async execute(userData: IRequest) {
-    const usersRepository = new UsersRepository();
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
 
-    const checkIfUserExists = await usersRepository.findByEmail(userData.email);
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
+  ) { }
+
+  public async execute(userData: IRequest) {
+    const checkIfUserExists = await this.usersRepository.findByEmail(userData.email);
 
     if (checkIfUserExists) {
       throw new AppError('Já existe um usuário com esse e-mail.', 422);
     }
 
-    const hashProvider = new BCryptHashProvider();
+    const passwordHashed = await this.hashProvider.generateHash(userData.password);
 
-    const passwordHashed = await hashProvider.generateHash(userData.password);
-
-    const createdUser = await usersRepository.create({
+    const createdUser = await this.usersRepository.create({
       name: userData.name,
       email: userData.email,
       password: passwordHashed

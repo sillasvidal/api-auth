@@ -9,5 +9,9 @@ interface IUser {
 export interface IUsersRepository {
   create(userData: IUser): Promise<User>;
   findByEmail(email: string): Promise<User | null>;
+  findById(userId: string): Promise<User | null>;
+  findByIdWithPermissions(userId: string): Promise<User | null>;
+  findByIdWithRoles(userId: string): Promise<User | null>;
   listAll(): Promise<User[] | null>;
+  save(userData: User): Promise<void>;
 }

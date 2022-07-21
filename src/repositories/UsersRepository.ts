@@ -15,6 +15,42 @@ class UsersRepository implements IUsersRepository {
   constructor() {
     this.usersRepository = AppDataSource.getRepository(User);
   } 
+
+  async findByIdWithPermissions(userId: string): Promise<User | null> {
+    const user = await this.usersRepository.findOne({ 
+      where: {
+        id: userId,
+      },
+      relations: ['permissions']
+     });
+
+    return user;
+  }
+
+  async findByIdWithRoles(userId: string): Promise<User | null> {
+    const user = await this.usersRepository.findOne({ 
+      where: {
+        id: userId,
+      },
+      relations: ['roles']
+     });
+
+    return user;
+  }
+
+  async save(userData: User): Promise<void> {
+    await this.usersRepository.save(userData);
+  }
+
+  async findById(userId: string): Promise<User | null> {
+    const user = await this.usersRepository.findOne({ 
+      where: {
+        id: userId,
+      }
+     });
+
+    return user;
+  }
   
   async create(userData: IUser): Promise<User> {
     const user = this.usersRepository.create(userData);

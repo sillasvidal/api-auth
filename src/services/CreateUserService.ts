@@ -2,7 +2,6 @@ import { inject, injectable } from "tsyringe";
 
 import AppError from "../errors/AppError";
 import { IUsersRepository } from "../repositories/IUsersRepository";
-import BCryptHashProvider from "../providers/BCryptHashProvider";
 import { IHashProvider } from "../providers/IHashProvider";
 
 interface IRequest {

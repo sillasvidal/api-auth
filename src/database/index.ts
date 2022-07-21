@@ -1,4 +1,7 @@
 import { DataSource } from 'typeorm';
+
+import Permission from '../entities/Permission';
+import Role from '../entities/Role';
 import User from '../entities/User';
 
 export const AppDataSource = new DataSource({
@@ -8,7 +11,7 @@ export const AppDataSource = new DataSource({
   username: 'postgres',
   password: 'docker',
   database: 'svtech_app',
-  entities: [User],
+  entities: [User, Permission, Role],
   synchronize: true,
   logging: false
 });

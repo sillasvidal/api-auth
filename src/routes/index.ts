@@ -7,4 +7,8 @@ const userController = new UserController();
 
 routes.post('/users', userController.create);
 
+routes.post('/users/login', userController.authenticate);
+
+routes.get('/users', userController.listAll);
+
 export default routes;

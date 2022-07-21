@@ -9,4 +9,5 @@ interface IUser {
 export interface IUsersRepository {
   create(userData: IUser): Promise<User>;
   findByEmail(email: string): Promise<User | null>;
+  listAll(): Promise<User[] | null>;
 }

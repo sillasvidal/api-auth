@@ -1,10 +1,8 @@
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-
-import Permission from './Permission';
 import Role from './Role';
 
-@Entity('users')
-class User {
+@Entity('permissions')
+class Permission {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -12,10 +10,7 @@ class User {
   name: string;
 
   @Column()
-  email: string;
-
-  @Column()
-  password: string;
+  description: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -23,21 +18,13 @@ class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToMany(() => Permission)
-  @JoinTable({
-    name: 'users_permissions',
-    joinColumns: [{name: 'permission_id'}],
-    inverseJoinColumns: [{name: 'user_id'}]
-  })
-  permissions: Permission[]
-
   @ManyToMany(() => Role)
   @JoinTable({
-    name: 'users_roles',
+    name: 'permissions_roles',
     joinColumns: [{name: 'role_id'}],
-    inverseJoinColumns: [{name: 'user_id'}]
+    inverseJoinColumns: [{name: 'permission_id'}]
   })
   roles: Role[]
 }
 
-export default User;
+export default Permission;

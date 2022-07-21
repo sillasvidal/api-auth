@@ -1,0 +1,114 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a api-auth with access level of users",
+    "version": "1.0.0",
+    "title": "Api-auth",
+    "contact": {
+      "email": "sillasv91@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "schemes": ["http"],
+  "host": "localhost:3333",
+  "basePath": "/",
+  "paths": {
+    "/users": {
+      "post": {
+        "summary": "Create a new user",
+        "description": "Create a new user",
+        "produces": ["appliction/json"],
+        "consumes": ["appliction/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/schemas/createUser"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/responses/successfulCreateUser"
+            }
+          }
+        }
+      }
+    }
+  },
+  "schemas": {
+    "createUser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "name": "Jade",
+        "email": "jade@gmail.com",
+        "password": "Teste123"
+      }
+    }
+  },
+  "responses": {
+    "successfulCreateUser": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "user": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "example": {
+        "code": "USER_CREATED",
+        "message": "Usuário criado com sucesso.",
+        "user": {
+          "name": "Jade",
+          "email": "jade@gmail.com",
+          "password": "$2a$08$rON/SLglPY5O.83ZKrYNn.mkAEzl9vx1GWGBt12XdrSas9IAlWeNO",
+          "id": "f296aa5a-43bd-45a5-be50-3a8f9eb72c69",
+          "created_at": "2022-07-15T03:54:15.618Z",
+          "updated_at": "2022-07-15T03:54:15.618Z"
+        }
+      }
+    }
+  }
+}

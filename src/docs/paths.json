@@ -1,0 +1,165 @@
+{
+  "/users/login": {
+    "post": {
+      "tags": ["User"],
+      "summary": "Login",
+      "produces": "application/json",
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/schemaLogin"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "$ref": "#/components/responses/responseLogin"
+        }
+      }
+    }
+  },
+  "/users": {
+    "post": {
+      "tags": ["User"],
+      "summary": "Create a new User",
+      "produces": "application/json",
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/schemaCreateUser"
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "$ref": "#/components/responses/responseUserCreated"
+        }
+      }
+    }
+  },
+  "/roles": {
+    "post": {
+      "tags": ["Role"],
+      "summary": "Create a new Role",
+      "produces": "application/json",
+      "security": [
+        {
+          "apiAuth": []
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/schemaCreateRole"
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "$ref": "#/components/responses/responseRoleCreated"
+        }
+      }
+    }
+  },
+  "/permissions": {
+    "post": {
+      "tags": ["Permission"],
+      "summary": "Create a new Permission",
+      "produces": "application/json",
+      "security": [
+        {
+          "apiAuth": []
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/schemaCreatePermission"
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "$ref": "#/components/responses/responsePermissionCreated"
+        }
+      }
+    }
+  },
+  "/users/access-control": {
+    "post": {
+      "tags": ["User"],
+      "summary": "Create a access control for user",
+      "produces": "application/json",
+      "security": [
+        {
+          "apiAuth": []
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/schemaCreateAccessControl"
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "$ref": "#/components/responses/responseAccessControlCreated"
+        }
+      }
+    }
+  },
+  "/roles/:roleId/permissions": {
+    "post": {
+      "tags": ["Role"],
+      "summary": "Create a relation between role-permission",
+      "produces": "application/json",
+      "security": [
+        {
+          "apiAuth": []
+        }
+      ],
+      "parameters": [
+        {
+          "name": "roleId",
+          "in": "param",
+          "required": true,
+          "description": "Role Id",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/schemaCreateRolePermission"
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "$ref": "#/components/responses/responseRolePermissionCreated"
+        }
+      }
+    }
+  }
+}

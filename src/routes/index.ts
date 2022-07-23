@@ -27,13 +27,13 @@ routes.get(
 );
 
 routes.post(
-  '/users/roles',
+  '/roles',
   ensureAuthenticated(),
   roleController.create
 );
 
 routes.post(
-  '/users/permissions',
+  '/permissions',
   ensureAuthenticated(),
   permissionController.create
 );

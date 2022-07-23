@@ -1,0 +1,62 @@
+{
+  "responseLogin": {
+    "description": "Login Successful",
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/schemaResponseLogin"
+        }
+      }
+    }
+  },
+  "responseUserCreated": {
+    "description": "User Created",
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/schemaResponseUserCreated"
+        }
+      }
+    }
+  },
+  "responseRoleCreated": {
+    "description": "Role Created",
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/schemaResponseRoleCreated"
+        }
+      }
+    }
+  },
+  "responsePermissionCreated": {
+    "description": "Permission Created",
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/schemaResponsePermissionCreated"
+        }
+      }
+    }
+  },
+  "responseAccessControlCreated": {
+    "description": "Access Control Created",
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/schemaResponseAccessControlCreated"
+        }
+      }
+    }
+  },
+  "responseRolePermissionCreated": {
+    "description": "Role Permission Created",
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/schemaResponseRolePermissionCreated"
+        }
+      }
+    }
+  }
+}

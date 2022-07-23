@@ -4,6 +4,8 @@ import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import 'express-async-errors';
 import swaggerUi from 'swagger-ui-express';
+
+
 import fs from 'fs';
 
 import routes from './routes';
@@ -13,16 +15,21 @@ import AppError from './errors/AppError';
 
 import './container';
 
-const swaggerFile = (process.cwd()+"/src/docs/swagger.json");
-const swaggerData = fs.readFileSync(swaggerFile, 'utf-8');
-const swaggerDocument = JSON.parse(swaggerData);
+const openapi = require('./docs/openapi.json');
+const paths = require('./docs/paths.json');
+const schemas = require('./docs/schemas.json');
+const responses = require('./docs/responses.json');
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(routes);
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+openapi.paths = { ...paths };
+openapi.components.schemas = { ...schemas };
+openapi.components.responses = { ...responses };
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapi));
 
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
   if (err instanceof AppError) {

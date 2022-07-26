@@ -1,8 +1,11 @@
 import { Request, Response } from 'express';
-
+import { classToClass } from 'class-transformer';
 import { container } from 'tsyringe';
-import AuthenticateUserService from '../services/AuthenticateUserService';
 
+import { MESSAGE_LOGIN_SUCCESSFUL, MESSAGE_USER_CREATED } from '../messages';
+
+
+import AuthenticateUserService from '../services/AuthenticateUserService';
 import CreateUserService from '../services/CreateUserService';
 import ListAllUsersService from '../services/ListAllUsersService';
 
@@ -10,13 +13,17 @@ class UserController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, email, password } = request.body;
 
-    console.log(request.body);
-
     const createUserService = container.resolve(CreateUserService);
 
     const createdUser = await createUserService.execute({ name, email, password });
 
-    return response.status(201).json(createdUser);
+    const responseCreatedUser = {
+      code: MESSAGE_USER_CREATED.code,
+      message: MESSAGE_USER_CREATED.message,
+      user: classToClass(createdUser),
+    };
+
+    return response.status(201).json(responseCreatedUser);
   }
 
   public async listAll(_: Request, response: Response): Promise<Response> {
@@ -24,7 +31,7 @@ class UserController {
 
     const users = await listAllUsersService.execute();
 
-    return response.status(200).json(users);
+    return response.status(200).json(classToClass(users));
   }
 
   public async authenticate(request: Request, response: Response): Promise<Response> {
@@ -34,7 +41,14 @@ class UserController {
 
     const login = await authenticateUserService.execute({ email, password });
 
-    return response.status(200).json(login);
+    const responseLogin = {
+      code: MESSAGE_LOGIN_SUCCESSFUL.code,
+      message: MESSAGE_LOGIN_SUCCESSFUL.message,
+      token: login.token,
+      user: classToClass(login.user)
+    };
+
+    return response.status(200).json(responseLogin);
   }
 }
 

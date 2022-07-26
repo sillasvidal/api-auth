@@ -1,4 +1,4 @@
-import Permission from "../entities/Permission";
+import Permission from '../entities/Permission';
 
 interface IPermission {
   name: string;

@@ -1,7 +1,10 @@
-import { In, Repository } from "typeorm";
-import { AppDataSource } from "../database";
-import Role from "../entities/Role";
-import { IRolesRepository } from "./IRolesRepository";
+import { In, Repository } from 'typeorm';
+
+import { AppDataSource } from '../database';
+
+import Role from '../entities/Role';
+
+import { IRolesRepository } from './IRolesRepository';
 
 interface IRole {
   name: string;
@@ -28,8 +31,6 @@ class RolesRepository implements IRolesRepository {
   }
 
   async findById(roleId: string): Promise<Role | null> {
-    console.log(roleId);
-
     const role = await this.rolesRepository.findOne({
       where: {
         id: roleId

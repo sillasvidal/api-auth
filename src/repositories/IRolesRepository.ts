@@ -1,4 +1,4 @@
-import Role from "../entities/Role";
+import Role from '../entities/Role';
 
 interface IRole {
   name: string;

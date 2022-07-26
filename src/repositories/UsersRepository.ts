@@ -1,7 +1,10 @@
-import { Repository } from "typeorm";
-import { AppDataSource } from "../database";
-import User from "../entities/User";
-import { IUsersRepository } from "./IUsersRepository";
+import { Repository } from 'typeorm';
+
+import { AppDataSource } from '../database';
+
+import User from '../entities/User';
+
+import { IUsersRepository } from './IUsersRepository';
 
 interface IUser {
   name: string;

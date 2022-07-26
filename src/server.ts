@@ -3,15 +3,14 @@ import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import 'express-async-errors';
+import { errors } from 'celebrate';
+import AppError from './errors/AppError';
+
 import swaggerUi from 'swagger-ui-express';
-
-
-import fs from 'fs';
 
 import routes from './routes';
 
 import { AppDataSource } from './database';
-import AppError from './errors/AppError';
 
 import './container';
 
@@ -25,16 +24,18 @@ app.use(cors());
 app.use(express.json());
 app.use(routes);
 
+app.use(errors());
+
 openapi.paths = { ...paths };
 openapi.components.schemas = { ...schemas };
 openapi.components.responses = { ...responses };
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapi));
 
-app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
+app.use((err: Error, _: Request, response: Response, __: NextFunction) => {
   if (err instanceof AppError) {
     return response.status(err.statusCode).json({
-      status: 'error',
+      code: err.code,
       message: err.message,
     });
   }
@@ -50,5 +51,5 @@ app.listen(3333, () => {
 });
 
 AppDataSource.initialize()
-  .then(() => {})
+  .then()
   .catch((error) => console.log(error));

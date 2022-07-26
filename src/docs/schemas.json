@@ -29,6 +29,17 @@
           "updated_at": { "type": "string" }
         }
       }
+    },
+    "example": {
+      "code": "USER_CREATED",
+      "message": "User created with successful.",
+      "user": {
+        "name": "Jonh Doe",
+        "email": "johndoe@example.com",
+        "id": "5c83439c-e178-4051-b992-1eff1e1c5cfa",
+        "created_at": "2022-07-24T20:11:21.154Z",
+        "updated_at": "2022-07-24T20:11:21.154Z"
+      }
     }
   },
   "schemaResponseLogin": {
@@ -47,6 +58,18 @@
           "created_at": { "type": "string" },
           "updated_at": { "type": "string" }
         }
+      }
+    },
+    "example": {
+      "code": "MESSAGE_LOGIN_SUCCESSFUL",
+      "message": "Login created with successful.",
+      "token": "jwt_token",
+      "user": {
+        "id": "user_Id",
+        "name": "John Doe",
+        "email": "johndoe@example.com",
+        "created_at": "2022-07-23T20:54:14.926Z",
+        "updated_at": "2022-07-23T20:54:14.926Z"
       }
     }
   },
@@ -78,6 +101,17 @@
           "updated_at": { "type": "string" }
         }
       }
+    },
+    "example": {
+      "code": "MESSAGE_ROLE_CREATED_WITH_SUCCESSFUL",
+      "message": "Role created with successful.",
+      "role": {
+        "name": "test_role",
+        "description": "Test Role",
+        "id": "190cdc16-c957-43d6-923f-7fc03e52e6bc",
+        "created_at": "2022-07-24T20:13:25.390Z",
+        "updated_at": "2022-07-24T20:13:25.390Z"
+      }
     }
   },
   "schemaCreateRole": {
@@ -108,6 +142,17 @@
           "updated_at": { "type": "string" }
         }
       }
+    },
+    "example": {
+      "code": "MESSAGE_PERMISSION_CREATED_WITH_SUCCESSFUL",
+      "message": "Permission created with successful.",
+      "permission": {
+        "name": "test_permission",
+        "description": "Test Permission",
+        "id": "93e67696-da46-404d-9174-6ae4611137cd",
+        "created_at": "2022-07-24T20:14:43.908Z",
+        "updated_at": "2022-07-24T20:14:43.908Z"
+      }
     }
   },
   "schemaCreatePermission": {
@@ -126,8 +171,8 @@
     "type": "object",
     "description": "Role Permission Created",
     "example": {
-      "code": "ROLE_PERMISSION_CREATED",
-      "message": "Relation between role and permission created.",
+      "code": "MESSAGE_RELATION_ROLE_PERMISSION_CREATED_WITH_SUCCESSFUL",
+      "message": "Relation between role and permission created with successful.",
       "role": {
         "id": "role_id",
         "name": "admin",

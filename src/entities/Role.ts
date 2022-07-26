@@ -1,4 +1,13 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { 
+  Column, 
+  CreateDateColumn, 
+  Entity, 
+  JoinTable, 
+  ManyToMany, 
+  PrimaryGeneratedColumn, 
+  UpdateDateColumn 
+} from 'typeorm';
+
 import Permission from './Permission';
 
 @Entity('roles')

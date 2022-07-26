@@ -1,8 +1,13 @@
-import { inject, injectable } from "tsyringe";
-import Role from "../entities/Role";
-import AppError from "../errors/AppError";
-import { IPermissionsRepository } from "../repositories/IPermissionsRepository";
-import { IRolesRepository } from "../repositories/IRolesRepository";
+import { inject, injectable } from 'tsyringe';
+
+import Role from '../entities/Role';
+
+import AppError from '../errors/AppError';
+
+import { MESSAGE_ERROR_ROLE_DOES_NOT_EXISTS } from '../messages';
+
+import { IPermissionsRepository } from '../repositories/IPermissionsRepository';
+import { IRolesRepository } from '../repositories/IRolesRepository';
 
 interface IRequest {
   roleId: string;
@@ -23,7 +28,11 @@ class CreateRolePermissionService {
     const role = await this.rolesRepository.findById(roleId);
 
     if (!role) {
-      throw new AppError('Role does not exists', 404);
+      throw new AppError(
+        MESSAGE_ERROR_ROLE_DOES_NOT_EXISTS.code,
+        MESSAGE_ERROR_ROLE_DOES_NOT_EXISTS.message, 
+        404
+      );
     }
 
     const permissionsExists = await this.permissionsRepository.findByNames(permissions);

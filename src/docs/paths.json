@@ -124,7 +124,7 @@
       }
     }
   },
-  "/roles/:roleId/permissions": {
+  "/roles/{roleId}/permissions": {
     "post": {
       "tags": ["Role"],
       "summary": "Create a relation between role-permission",
@@ -137,7 +137,7 @@
       "parameters": [
         {
           "name": "roleId",
-          "in": "param",
+          "in": "path",
           "required": true,
           "description": "Role Id",
           "schema": {

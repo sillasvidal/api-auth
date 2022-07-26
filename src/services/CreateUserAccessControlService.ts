@@ -1,9 +1,14 @@
-import { inject, injectable } from "tsyringe";
-import User from "../entities/User";
-import AppError from "../errors/AppError";
-import { IPermissionsRepository } from "../repositories/IPermissionsRepository";
-import { IRolesRepository } from "../repositories/IRolesRepository";
-import { IUsersRepository } from "../repositories/IUsersRepository";
+import { inject, injectable } from 'tsyringe';
+
+import User from '../entities/User';
+
+import AppError from '../errors/AppError';
+
+import { MESSAGE_ERROR_USER_DOES_NOT_EXISTS } from '../messages';
+
+import { IPermissionsRepository } from '../repositories/IPermissionsRepository';
+import { IRolesRepository } from '../repositories/IRolesRepository';
+import { IUsersRepository } from '../repositories/IUsersRepository';
 
 interface IUserAccessControl {
   userId: string;
@@ -28,7 +33,11 @@ class CreateUserAccessControlService {
     const user = await this.usersRepository.findById(userId);
 
     if (!user) {
-      throw new AppError('User does not exists!.', 404);
+      throw new AppError(
+        MESSAGE_ERROR_USER_DOES_NOT_EXISTS.code,
+        MESSAGE_ERROR_USER_DOES_NOT_EXISTS.message,
+        404
+      );
     }
 
     const permissionsExists = await this.permissionsRepository.findByNames(permissions);

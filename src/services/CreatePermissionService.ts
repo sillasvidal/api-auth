@@ -1,7 +1,12 @@
-import { inject, injectable } from "tsyringe";
-import Permission from "../entities/Permission";
-import AppError from "../errors/AppError";
-import { IPermissionsRepository } from "../repositories/IPermissionsRepository";
+import { inject, injectable } from 'tsyringe';
+
+import Permission from '../entities/Permission';
+
+import AppError from '../errors/AppError';
+
+import { MESSAGE_ERROR_PERMISSION_NAME_ALREADY_EXISTS } from '../messages';
+
+import { IPermissionsRepository } from '../repositories/IPermissionsRepository';
 
 interface IPermission {
   name: string;
@@ -19,7 +24,11 @@ class CreatePermissionService {
     const checkIfPermissionExists = await this.permissionsRepository.findByName(name);
 
     if (checkIfPermissionExists) {
-      throw new AppError('Permission name already exists.', 422);
+      throw new AppError(
+        MESSAGE_ERROR_PERMISSION_NAME_ALREADY_EXISTS.code, 
+        MESSAGE_ERROR_PERMISSION_NAME_ALREADY_EXISTS.message,
+        422
+      );
     }
 
     const permission = await this.permissionsRepository.create({name, description});

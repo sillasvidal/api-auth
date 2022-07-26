@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-
 import { container } from 'tsyringe';
+
+import { MESSAGE_ROLE_CREATED_WITH_SUCCESSFUL } from '../messages';
 
 import CreateRoleService from '../services/CreateRoleService';
 
@@ -12,7 +13,13 @@ class RoleController {
 
     const createdRole = await createRoleService.execute({ name, description });
 
-    return response.status(201).json(createdRole);
+    const responseCreatedRole = {
+      code: MESSAGE_ROLE_CREATED_WITH_SUCCESSFUL.code,
+      message: MESSAGE_ROLE_CREATED_WITH_SUCCESSFUL.message,
+      role: createdRole
+    };
+
+    return response.status(201).json(responseCreatedRole);
   }
 }
 

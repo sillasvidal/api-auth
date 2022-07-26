@@ -1,8 +1,10 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
 
-import AppError from "../errors/AppError";
+import AppError from '../errors/AppError';
 
-import UsersRepository from "../repositories/UsersRepository";
+import { MESSAGE_ERROR_USER_DOES_NOT_EXISTS, MESSAGE_ERROR_USER_NOT_AUTHORIZED } from '../messages';
+
+import UsersRepository from '../repositories/UsersRepository';
 
 const usersRepository = new UsersRepository();
 
@@ -13,7 +15,11 @@ export function can(permissionsRoutes: string[]) {
     const user = await usersRepository.findByIdWithPermissions(userId);
 
     if (!user) {
-      throw new AppError('User does not exists.', 400);
+      throw new AppError(
+        MESSAGE_ERROR_USER_DOES_NOT_EXISTS.code,
+        MESSAGE_ERROR_USER_DOES_NOT_EXISTS.message,
+        400
+      );
     }
 
     const permissionExists = user.permissions
@@ -21,7 +27,11 @@ export function can(permissionsRoutes: string[]) {
       .some(permission => permissionsRoutes.includes(permission));
 
     if (!permissionExists) {
-      throw new AppError('Not Authorized', 401);
+      throw new AppError(
+        MESSAGE_ERROR_USER_NOT_AUTHORIZED.code,
+        MESSAGE_ERROR_USER_NOT_AUTHORIZED.message, 
+        401
+      );
     }
 
     return next();
@@ -35,7 +45,11 @@ export function is(rolesRoutes: string[]) {
     const user = await usersRepository.findByIdWithRoles(userId);
 
     if (!user) {
-      throw new AppError('User does not exists.', 400);
+      throw new AppError(
+        MESSAGE_ERROR_USER_DOES_NOT_EXISTS.code,
+        MESSAGE_ERROR_USER_DOES_NOT_EXISTS.message,
+        400
+      );
     }
 
     const roleExists = user.roles
@@ -43,7 +57,11 @@ export function is(rolesRoutes: string[]) {
       .some(role => rolesRoutes.includes(role));
 
     if (!roleExists) {
-      throw new AppError('Not Authorized', 401);
+      throw new AppError(
+        MESSAGE_ERROR_USER_NOT_AUTHORIZED.code,
+        MESSAGE_ERROR_USER_NOT_AUTHORIZED.message, 
+        401
+      );
     }
 
     return next();

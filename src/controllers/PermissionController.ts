@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-
 import { container } from 'tsyringe';
+
+import { MESSAGE_PERMISSION_CREATED_WITH_SUCCESSFUL } from '../messages';
 
 import CreatePermissionService from '../services/CreatePermissionService';
 
@@ -12,7 +13,13 @@ class PermissionController {
 
     const createdPermission = await createPermissionService.execute({ name, description });
 
-    return response.status(201).json(createdPermission);
+    const responseCreatedPermission = {
+      code: MESSAGE_PERMISSION_CREATED_WITH_SUCCESSFUL.code,
+      message: MESSAGE_PERMISSION_CREATED_WITH_SUCCESSFUL.message,
+      permission: createdPermission
+    };
+
+    return response.status(201).json(responseCreatedPermission);
   }
 }
 

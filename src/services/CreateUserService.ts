@@ -1,8 +1,12 @@
-import { inject, injectable } from "tsyringe";
+import { inject, injectable } from 'tsyringe';
 
-import AppError from "../errors/AppError";
-import { IUsersRepository } from "../repositories/IUsersRepository";
-import { IHashProvider } from "../providers/IHashProvider";
+import AppError from '../errors/AppError';
+
+import { IUsersRepository } from '../repositories/IUsersRepository';
+
+import { IHashProvider } from '../providers/IHashProvider';
+
+import { MESSAGE_ERROR_USER_ALREADY_EXISTS_WITH_EMAIL } from '../messages';
 
 interface IRequest {
   name: string;
@@ -24,7 +28,11 @@ class CreateUserService {
     const checkIfUserExists = await this.usersRepository.findByEmail(userData.email);
 
     if (checkIfUserExists) {
-      throw new AppError('Já existe um usuário com esse e-mail.', 422);
+      throw new AppError(
+        MESSAGE_ERROR_USER_ALREADY_EXISTS_WITH_EMAIL.code, 
+        MESSAGE_ERROR_USER_ALREADY_EXISTS_WITH_EMAIL.message, 
+        422
+      );
     }
 
     const passwordHashed = await this.hashProvider.generateHash(userData.password);

@@ -1,4 +1,14 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { 
+  Column, 
+  CreateDateColumn, 
+  Entity, 
+  JoinTable, 
+  ManyToMany, 
+  PrimaryGeneratedColumn, 
+  UpdateDateColumn 
+} from 'typeorm';
+
+import { Exclude } from 'class-transformer';
 
 import Permission from './Permission';
 import Role from './Role';
@@ -15,6 +25,7 @@ class User {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @CreateDateColumn()

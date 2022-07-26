@@ -1,7 +1,10 @@
-import { In, Repository } from "typeorm";
-import { AppDataSource } from "../database";
-import Permission from "../entities/Permission";
-import { IPermissionsRepository } from "./IPermissionsRepository";
+import { In, Repository } from 'typeorm';
+
+import { AppDataSource } from '../database';
+
+import Permission from '../entities/Permission';
+
+import { IPermissionsRepository } from './IPermissionsRepository';
 
 interface IPermission {
   name: string;

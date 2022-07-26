@@ -1,7 +1,12 @@
-import { inject, injectable } from "tsyringe";
-import Role from "../entities/Role";
-import AppError from "../errors/AppError";
-import { IRolesRepository } from "../repositories/IRolesRepository";
+import { inject, injectable } from 'tsyringe';
+
+import Role from '../entities/Role';
+
+import AppError from '../errors/AppError';
+
+import { MESSAGE_ERROR_ROLE_NAME_ALREADY_EXISTS } from '../messages';
+
+import { IRolesRepository } from '../repositories/IRolesRepository';
 
 interface IRole {
   name: string;
@@ -19,7 +24,11 @@ class CreateRoleService {
     const checkIfRoleExists = await this.rolesRepository.findByName(name);
 
     if (checkIfRoleExists) {
-      throw new AppError('Role name already exists.', 422);
+      throw new AppError(
+        MESSAGE_ERROR_ROLE_NAME_ALREADY_EXISTS.code,
+        MESSAGE_ERROR_ROLE_NAME_ALREADY_EXISTS.message,
+        422
+      );
     }
 
     const role = await this.rolesRepository.create({name, description});

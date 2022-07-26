@@ -6,11 +6,11 @@ Authentication api for applications
 
 - docker run --name svtech_app -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
 
-# Create a new database named:
+## Create a new database named:
 
 - svtech_app
 
-# Run application with command:
+## Run application with command:
 
 - yarn dev:server
   or

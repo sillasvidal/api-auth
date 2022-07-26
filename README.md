@@ -13,5 +13,4 @@ Authentication api for applications
 ## Run application with command:
 
 - yarn dev:server
-  or
 - npm run dev:server
